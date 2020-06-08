@@ -1,0 +1,99 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace FormDangKi
+{
+    class NguoiDung
+    {
+        private string hoten, email, phone, taikhoan, matkhau;
+
+        public NguoiDung()
+        {
+            hoten = email = phone = taikhoan = matkhau = "";
+        }
+
+        public NguoiDung(string ten, string mail, string didong, string tk, string mk)
+        {
+            hoten = ten;
+            email = mail;
+            phone = didong;
+            taikhoan = tk;
+            matkhau = mk;
+        }
+
+        public bool KiemTraDinhDangMatKhau()
+        {
+            if (matkhau.Length < 7)
+            {
+                return false;
+            }
+
+            bool KiemTraChu = false;
+            bool KiemTraSo = false;
+
+            for (int i = 0; i < matkhau.Length; ++i)
+            {
+                if (KiemTraChu == true && KiemTraSo == true)
+                {
+                    break;
+                }
+                if ((matkhau[i] >= 'A' && matkhau[i] <= 'Z') || (matkhau[i] >= 'a' && matkhau[i] <= 'z'))
+                {
+                    KiemTraChu = true;
+
+                }
+
+                if (matkhau[i] >= '0' && matkhau[i] <= '9')
+                {
+                    KiemTraSo = true;
+                }
+            }
+
+            if (KiemTraSo == false || KiemTraChu == false)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public bool KiemTraDinhDangEmail()
+        {
+            if (email.Contains ("@"))
+            {
+                return false;
+            }
+
+            if (!email.Contains(".com"))
+            {
+                return false;
+            }
+
+            int index1 = email.IndexOf("@");
+            int index2 = email.IndexOf(".com");
+
+            string s = email.Substring(index1 + 1, index2 - index1 - 1);
+
+            if (s != "gmail" && s != "yahoo" && s != "hotmail")
+            {
+                return false;
+            }
+
+            if (s == "yahoo")
+            {
+                if (!email.Contains(".vn"))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+
+    }
+
+}
+
