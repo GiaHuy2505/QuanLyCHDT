@@ -1,0 +1,128 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace FormDangKi
+{
+    public partial class Form1 : Form
+    {
+        private const string Value = "";
+
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        private void textBox3_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnDangKy_Click(object sender, EventArgs e)
+        {
+
+            if (txtHoTen.Text == "")
+            {
+                MessageBox.Show("Bạn chưa nhập Họ Tên");
+                txtHoTen.Focus();
+            }
+            else if (txtEmail.Text == "")
+            {
+                MessageBox.Show("Bạn chưa nhập Email");
+                txtEmail.Focus();
+            }
+            else if (txtPhone.Text == "")
+            {
+                MessageBox.Show("Bạn chưa nhập số điện thoại");
+                txtPhone.Focus();
+            }
+            else if (txtTaiKhoan.Text == "")
+            {
+                MessageBox.Show("Bạn chưa nhập Tài Khoản");
+                txtTaiKhoan.Focus();
+            }
+            else if (txtMatKhau.Text == "")
+            {
+                MessageBox.Show("Bạn chưa nhập Mật Khẩu");
+                txtMatKhau.Focus();
+            }
+            else if (txtXacNhanMatKhau.Text == "")
+            {
+                MessageBox.Show("Bạn chưa Xác Nhận Mật Khẩu");
+                txtXacNhanMatKhau.Focus();
+            }
+            else if (txtMatKhau.Text != txtXacNhanMatKhau.Text)
+            {
+                MessageBox.Show("Không khớp với mật khẩu vui lòng nhập lại");
+                txtXacNhanMatKhau.Focus();
+                txtXacNhanMatKhau.SelectAll();
+            }
+
+
+            else
+            {
+                NguoiDung nd = new NguoiDung(txtHoTen.Text, txtEmail.Text, txtPhone.Text, txtTaiKhoan.Text, txtMatKhau.Text);
+
+                if (!nd.KiemTraDinhDangEmail())
+                {
+                    MessageBox.Show("Email không hợp lệ ");
+                    txtEmail.Focus();
+
+                }
+                else
+                {
+                    if (nd.KiemTraDinhDangMatKhau() == true)
+                    {
+                        MessageBox.Show("Đăng Kí Thành Công");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Mật Khẩu Không Hợp Lệ");
+                        txtMatKhau.Focus();
+                        txtMatKhau.SelectAll();
+                    }
+
+                }
+            }
+        }
+
+        private void txtPhone_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!Char.IsDigit(e.KeyChar) && (Keys)e.KeyChar != Keys.Back)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtHoTen_KeyPress(object sender, KeyPressEventArgs e)
+        {            if (!Char.IsLetter(e.KeyChar) && (Keys)e.KeyChar != Keys.Back && (Keys)e.KeyChar != Keys.Space)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+           // int index1 = txtEmail.Text.IndexOf("@");
+            //int index2 = txtEmail.Text.IndexOf("com");
+
+           // string s = txtEmail.Text.Substring(index1 + 1, index2 - index1 - 1);
+        }
+    }
+}
